@@ -167,5 +167,18 @@ class Application extends Service
         'oauth2AccessToken' => 'services\oauth2\AccessTokenService',
         'oauth2RefreshToken' => 'services\oauth2\RefreshTokenService',
         'oauth2AuthorizationCode' => 'services\oauth2\AuthorizationCodeService',
+        /** ------ api ------ **/
+        'projectAccessToken' => [
+            'class' => 'services\project\AccessTokenService',
+            'cache' => false, // 启用缓存到缓存读取用户信息
+            'timeout' => 720, // 缓存过期时间，单位秒
+        ],
+        /** ------ 公司部分 ------ **/
+        'workerService' => 'services\company\WorkerService',
+        'worker' => 'services\member\WorkerService',
+        'workerMiniMessage' => 'services\project\MiniMessageService',
+        /** ------ 业务部分 ------ **/
+        'projectItem' => 'services\project\ItemService',
+        'projectService' => 'services\project\ServiceService',
     ];
 }

@@ -1,4 +1,11 @@
 <?php
+/*
+ * @Author: Xjie<374048808@qq.com>
+ * @Date: 2022-06-01 15:04:55
+ * @LastEditors: Xjie<374048808@qq.com>
+ * @LastEditTime: 2022-06-01 17:56:31
+ * @Description: 
+ */
 
 namespace common\enums;
 
@@ -18,6 +25,7 @@ class AppEnum extends BaseEnum
     const OAUTH2 = 'oauth2';
     const STORAGE = 'storage';
     const CONSOLE = 'console';
+    const PROJECT = 'project';
 
     /**
      * @return array
@@ -33,7 +41,7 @@ class AppEnum extends BaseEnum
             self::MER_API => '商家接口',
             self::OAUTH2 => 'oauth2',
             self::STORAGE => '存储',
-            self::CONSOLE => '控制台',
+            self::PROJECT => '项目',
         ];
     }
 
@@ -44,7 +52,7 @@ class AppEnum extends BaseEnum
      */
     public static function api()
     {
-        return [self::API, self::MER_API, self::OAUTH2];
+        return [self::API, self::MER_API, self::OAUTH2, self::PROJECT];
     }
 
     /**

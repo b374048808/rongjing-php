@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Html;
 use yii\helpers\Url;
 use common\helpers\ImageHelper;
@@ -8,14 +9,14 @@ use common\helpers\StringHelper;
 <div class="rf-row">
     <div class="col-sm-12">
         <div class="upload-list">
-            <ul id="<?= $boxId; ?>" data-name="<?= $name?>" data-boxId="<?= $boxId?>" data-multiple="<?= $config['pick']['multiple'] ?>">
-                <?php foreach ($value as $vo){ ?>
+            <ul id="<?= $boxId; ?>" data-name="<?= $name ?>" data-boxId="<?= $boxId ?>" data-multiple="<?= $config['pick']['multiple'] ?>">
+                <?php foreach ($value as $vo) { ?>
                     <li>
-                        <?= Html::hiddenInput($name, $vo)?>
+                        <?= Html::hiddenInput($name, $vo) ?>
                         <div class="img-box">
-                            <?php if ($type == 'images' || ImageHelper::isImg($vo)) {?>
+                            <?php if ($type == 'images' || ImageHelper::isImg($vo)) { ?>
                                 <a href="<?= trim($vo) ?>" data-fancybox="rfUploadImg">
-                                    <div class="bg-cover" style="background-image: url(<?= $vo?>);"></div>
+                                    <div class="bg-cover" style="background-image: url(<?= $vo ?>);"></div>
                                 </a>
                             <?php } else { ?>
                                 <i class="fa fa-file-o"></i>
@@ -26,11 +27,11 @@ use common\helpers\StringHelper;
                         </div>
                     </li>
                 <?php } ?>
-                <li class="upload-box <?php if(!empty($value) && $config['pick']['multiple'] == false){?>hide<?php } ?>">
+                <li class="upload-box <?php if (!empty($value) && $config['pick']['multiple'] == false) { ?>hide<?php } ?>">
                     <i class="fa fa-cloud-upload"></i>
-                    <?php if ($themeConfig['select'] === true) {?>
+                    <?php if ($themeConfig['select'] === true) { ?>
                         <div class="upload-box-bg hide befor-upload">
-                            <a class="first" href="<?= Url::to(['/file/selector', 'boxId' => $boxId, 'upload_type' => $type, 'multiple' => $config['pick']['multiple'], 'upload_drive' => $config['formData']['drive']])?>" data-toggle='modal' data-target='#ajaxModalMax'>选择文件</a>
+                            <a class="first" href="<?= Url::to(['/file/selector', 'boxId' => $boxId, 'upload_type' => $type, 'multiple' => $config['pick']['multiple'], 'upload_drive' => $config['formData']['drive']]) ?>" data-toggle='modal' data-target='#ajaxModalMax'>选择文件</a>
                             <a class="second upload-box-immediately">立即上传</a>
                         </div>
                     <?php } ?>
@@ -56,11 +57,11 @@ use common\helpers\StringHelper;
                 <div class="bg-cover" style="background-image: url({{value}});"></div>
             </a>
             {{else}}
-            <i class="fa fa-file-o"></i>
-            <i class="upload-extend">{{extend}}</i>
-            <div class="bottom-bar"><a href="{{value}}" target="_blank">预览</a></div>
-            {{/if}}
-            <i class="delimg" data-multiple="{{multiple}}"></i>
+                <i class="fa fa-file-o"></i>
+                <i class="upload-extend">{{extend}}</i>
+                <div class="bottom-bar"><a href="{{value}}" target="_blank">预览</a></div>
+                {{/if}}
+                <i class="delimg" data-multiple="{{multiple}}"></i>
         </div>
     </li>
 </script>
@@ -77,7 +78,7 @@ use common\helpers\StringHelper;
     // 删除图片节点
     $(document).on("click", ".delimg", function() {
         let parentObj = $(this).parent().parent();
-        let multiple =  $(this).data('multiple');
+        let multiple = $(this).data('multiple');
         let name = parentObj.parent().attr('data-name');
         let boxId = parentObj.parent().attr('data-boxId');
 
@@ -105,12 +106,12 @@ use common\helpers\StringHelper;
     });
 
     // 上传成功
-    $(document).on('upload-success-' + boxId, function(e, data, config){
+    $(document).on('upload-success-' + boxId, function(e, data, config) {
         let boxId = config.boxId;
         let multiple = config.pick.multiple;
         // 判断是否是多图上传
         let obj = $('#' + boxId + ' .upload-box');
-        if (multiple === 'false' || multiple === false){
+        if (multiple === 'false' || multiple === false) {
             $(obj).addClass('hide');
         }
 
@@ -131,23 +132,23 @@ use common\helpers\StringHelper;
     });
 
     // 上传失败
-    $(document).on('upload-error-' + boxId, function(e, file, reason, uploader, config){
+    $(document).on('upload-error-' + boxId, function(e, file, reason, uploader, config) {
         uploader.removeFile(file); //从队列中移除
         rfError("上传失败，服务器错误");
     });
 
     // 文件添加进来的时候
-    $(document).on('upload-file-queued-' + boxId, function(e, file, uploader, config){
+    $(document).on('upload-file-queued-' + boxId, function(e, file, uploader, config) {
         let parentObj = getParent(config);
     });
 
     // 一批文件添加进来的时候
-    $(document).on('upload-files-queued-' + boxId, function(e, files, uploader, config){
+    $(document).on('upload-files-queued-' + boxId, function(e, files, uploader, config) {
         let parentObj = getParent(config);
     });
 
     // 上传不管成功还是失败回调
-    $(document).on('upload-complete-' + boxId, function(e, file, num, config, uploadProgress){
+    $(document).on('upload-complete-' + boxId, function(e, file, num, config, uploadProgress) {
         let parentObj = getParent(config);
         var remove = true;
         // 如果队列为空，则移除进度条
@@ -167,7 +168,7 @@ use common\helpers\StringHelper;
     });
 
     // 创建进度条
-    $(document).on('upload-create-progress-' + boxId, function(e, file, uploader, config){
+    $(document).on('upload-create-progress-' + boxId, function(e, file, uploader, config) {
         let parentObj = getParent(config);
         if (parentObj.children(".upload-progress").hasClass('hide')) {
             parentObj.children(".badge").html("0%");
@@ -184,7 +185,7 @@ use common\helpers\StringHelper;
     });
 
     // 实时进度条
-    $(document).on('upload-progress-' + boxId, function(e, file, percentage, config){
+    $(document).on('upload-progress-' + boxId, function(e, file, percentage, config) {
         let parentObj = getParent(config);
         let progressObj = parentObj.find(".upload-progress");
         percentage = Math.floor(percentage * 100);
@@ -198,7 +199,7 @@ use common\helpers\StringHelper;
     });
 
     // md5创建验证中
-    $(document).on('md5Verify-create-progress-' + boxId, function(e, file, uploader, config, text = "验证中..."){
+    $(document).on('md5Verify-create-progress-' + boxId, function(e, file, uploader, config, text = "验证中...") {
         let parentObj = getParent(config);
         if (parentObj.children(".upload-progress").length === 0) {
             parentObj.find(".badge").html(text);
@@ -214,18 +215,19 @@ use common\helpers\StringHelper;
     });
 
     // 选择回调
-    $(document).on('select-file-' + boxId, function(e, boxId, data){
+    $(document).on('select-file-' + boxId, function(e, boxId, data) {
         if (data.length === 0) {
             return;
         }
 
-        let multiple =  $('#' + boxId).data('multiple');
+        let multiple = $('#' + boxId).data('multiple');
         // 判断是否是多图上传
         let obj = $('#' + boxId + ' .upload-box');
-        if (multiple === 'false' || multiple === false || multiple === ''){
+        if (multiple === 'false' || multiple === false || multiple === '') {
             $(obj).addClass('hide');
             // 增加显示
             var arr = data[0].url.split('.');
+            console.log(data[0]);
             let callData = [];
             callData["id"] = data[0].id;
             callData["value"] = data[0].url;

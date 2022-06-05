@@ -25,6 +25,18 @@ return [
         'member' => [
             'class' => 'backend\modules\member\Module',
         ],
+        /** ------ 企业管理模块 ------ **/
+        'company' => [
+            'class' => 'backend\modules\company\Module',
+        ],
+        /** ------ 项目模块 ------ **/
+        'project' => [
+            'class' => 'backend\modules\project\Module',
+        ],
+        /** ------ 房屋模块 ------ **/
+        'house' => [
+            'class' => 'backend\modules\house\Module',
+        ],
         /** ------ oauth2 ------ **/
         'oauth2' => [
             'class' => 'backend\modules\oauth2\Module',
@@ -39,7 +51,7 @@ return [
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
             'idParam' => '__backend',
-            'on afterLogin' => function($event) {
+            'on afterLogin' => function ($event) {
                 Yii::$app->services->backendMember->lastLogin($event->identity);
             },
         ],
@@ -64,8 +76,7 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => [
-            ],
+            'rules' => [],
         ],
         'assetManager' => [
             // 'linkAssets' => true,
@@ -86,7 +97,7 @@ return [
         ],
         'response' => [
             'class' => 'yii\web\Response',
-            'on beforeSend' => function($event) {
+            'on beforeSend' => function ($event) {
                 Yii::$app->services->log->record($event->sender);
             },
         ],
