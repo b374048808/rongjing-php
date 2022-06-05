@@ -137,19 +137,21 @@ $(function () {
 
             //当文件上传成功时触发
             uploader.on('uploadSuccess', function (file, data) {
-
                 console.log(uploadProgress);
                 console.log(data);
-
                 if (parseInt(data.code) === 200) {
                     data = data.data;
+                    // 额外添加，去除图片地址里的域名
+                    data.url = '/' + data.url.split('/').slice(3).join('/');
+                    // 结束
+                    console.log(data);
                     // 如果需要合并回调
                     if (data.merge == true) {
                         $.ajax({
                             type: "post",
                             url: config.mergeUrl,
                             dataType: "json",
-                            data: {guid: data.guid},
+                            data: { guid: data.guid },
                             success: function (data) {
                                 if (data.code == 200) {
                                     data = data.data;
@@ -183,7 +185,7 @@ $(function () {
         };
 
         // 校验md5
-        function md5File(file, uploader, config) {
+        function md5File (file, uploader, config) {
             // 接管的直接上传跳过验证
             if (config.independentUrl == true || config.md5Verify == false) {
                 $(document).trigger('md5Verify-create-progress-' + config.boxId, [file, uploader, config, '0%']);
@@ -211,7 +213,7 @@ $(function () {
                         type: "post",
                         url: config.verifyMd5Url,
                         dataType: "json",
-                        data: {md5: md5[file.id], drive: config.formData.drive},
+                        data: { md5: md5[file.id], drive: config.formData.drive },
                         success: function (data) {
                             if (parseInt(data.code) === 200) {
                                 //跳过如果存在则跳过
@@ -281,7 +283,7 @@ $(document).on("click", ".cropper-scaleX", function (e) {
 });
 
 //图像上传
-function selectImg(file) {
+function selectImg (file) {
     var maxSize = 1024 * 5;// 5M
     if (!file.files || !file.files[0]) {
         return;
@@ -344,7 +346,7 @@ $(document).on("click", ".map-select", function (e) {
  * @checkId:需要默认勾选的数节点id；1.checkId="all"，表示勾选所有节点 2.checkId=[1,2]表示勾选id为1,2的节点
  * 节点的id号由url传入json串中的id决定
  */
-function showCheckboxTree(data, id, checkId) {
+function showCheckboxTree (data, id, checkId) {
     var that = $("#" + id);
 
     menuTree = that.bind("loaded.jstree", function (e, data) {
@@ -407,7 +409,7 @@ function showCheckboxTree(data, id, checkId) {
  *
  * @param treeId
  */
-function getCheckTreeIds(treeId) {
+function getCheckTreeIds (treeId) {
     // 打开所有的节点，不然获取不到子节点数据
     var that = $("#" + treeId);
     that.jstree('open_all');

@@ -96,17 +96,17 @@ class Files extends InputWidget
             ], // 表单参数
             'pick' => [
                 'id' => '.upload-album-' . $this->boxId,
-                'innerHTML' => '',// 指定按钮文字。不指定时优先从指定的容器中看是否自带文字。
+                'innerHTML' => '', // 指定按钮文字。不指定时优先从指定的容器中看是否自带文字。
                 'multiple' => false, // 是否开起同时选择多个文件能力
             ],
             'accept' => [
-                'title' => 'Images',// 文字描述
+                'title' => 'Images', // 文字描述
                 'extensions' => implode(',', $this->typeConfig['extensions']), // 后缀
-                'mimeTypes' => $this->typeConfig['mimeTypes'],// 上传文件类型
+                'mimeTypes' => $this->typeConfig['mimeTypes'], // 上传文件类型
             ],
             'swf' => null, //
-            'chunked' => false,// 开启分片上传
-            'chunkSize' => 10 * 1024 * 1024,// 分片大小
+            'chunked' => false, // 开启分片上传
+            'chunkSize' => 10 * 1024 * 1024, // 分片大小
             'server' => $uploadUrl[$this->type], // 默认上传地址
             'fileVal' => 'file', // 设置文件上传域的name
             'disableGlobalDnd' => true, // 禁掉全局的拖拽功能。这样不会出现图片拖进页面的时候，把图片打开。
@@ -144,7 +144,7 @@ class Files extends InputWidget
         $name = $this->hasModel() ? Html::getInputName($this->model, $this->attribute) : $this->name;
 
         empty($value) && $value = [];
-        if ($this->config['pick']['multiple'] == true ) {
+        if ($this->config['pick']['multiple'] == true) {
             // 赋予默认值
             $name = $name . '[]';
 
@@ -173,7 +173,7 @@ class Files extends InputWidget
             $path = $this->typeConfig['path'] . date($this->typeConfig['subName'], time()) . "/";
             $oss = Yii::$app->uploadDrive->oss()->config($this->config['fileSingleSizeLimit'], $path, 60 * 60 * 2, $this->type);
             $this->config['server'] = $oss['host'];
-            $this->config['formData'] = ArrayHelper::merge($this->config['formData'] , $oss);
+            $this->config['formData'] = ArrayHelper::merge($this->config['formData'], $oss);
         }
 
         foreach ($this->config['formData'] as &$datum) {
@@ -183,7 +183,6 @@ class Files extends InputWidget
         }
 
         $this->registerClientScript();
-
         return $this->render($this->theme, [
             'name' => $name,
             'value' => $value,
@@ -207,7 +206,8 @@ class Files extends InputWidget
         // 手机端禁用拖动
         Yii::$app->mobileDetect->isMobile() && $disabled = false;
 
-        $view->registerJs(<<<Js
+        $view->registerJs(
+            <<<Js
     var sortable = '{$disabled}';
     if (sortable) {
            // 拖动排序
